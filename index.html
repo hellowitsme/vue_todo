@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue | TodoList</title>
+    <link rel="stylesheet" type="text" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <h1>TODO LIST</h1>
+
+      <!-- AddTasks -->
+      <section class="add container">
+        <form v-on:submit.prevent="addTask">
+          <input type="text" placeholder="追加したいタスク名を入力してください" v-model="newTask">
+          <button @click="error">Add</button>
+          <span v-if="hasError && !newTask" style="color:red;">{{hasError}}</span>
+        </form>
+      </section>
+
+      <!-- searchBox -->
+      <section class="search container">
+        <div>
+          <input type="text" placeholder="検索したいタスク名を入力してください" v-model="keyword">
+          <i class="fas fa-search"></i>
+        </div>
+      </section>
+
+
+      <!-- TodoList -->
+      <section class="todoList">
+        <div class="task">
+          <ul class="todo_list">
+            <li v-for="(todo, index) in search" v-bind:class="{ done: todo.isDone }" class="todo_item">
+              <input type="checkbox" v-model="todo.isDone" class="check">
+              <span>{{ todo.content }}</span>
+              <button v-on:click="deleteTask(index)" class="todo_btn">
+                <i class="fas fa-trash"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
